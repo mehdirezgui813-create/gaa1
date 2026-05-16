@@ -1,0 +1,132 @@
+.table-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.data-table thead {
+  background: #f5f5f5;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.data-table th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+}
+
+.data-table tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  transition: background 0.3s;
+}
+
+.data-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.data-table td {
+  padding: 16px;
+  color: #666;
+}
+
+.id-cell {
+  color: #667eea;
+  font-weight: 600;
+}
+
+.name-cell {
+  color: #333;
+  font-weight: 500;
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.category-badge.musicien {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.category-badge.danseur {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.category-badge.chanteur {
+  background: #fce4ec;
+  color: #c2185b;
+}
+
+.category-badge.acteur {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-badge.actif {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge.inactif {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.status-badge.suspendu {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 8px;
+  transition: all 0.3s;
+}
+
+.action-btn:hover {
+  transform: scale(1.2);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 16px !important;
+  color: #999;
+}
+
+.table-footer {
+  padding: 16px;
+  background: #f5f5f5;
+  border-top: 1px solid #e0e0e0;
+  font-size: 13px;
+  color: #666;
+}
