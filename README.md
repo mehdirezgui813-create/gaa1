@@ -1,13 +1,13 @@
 # GAA Frontend - React Application
 
-A comprehensive React frontend for the GAA (Gestion des Artistes et Artisans) application that consumes a Spring Boot backend API.
+A comprehensive React frontend for the GAA (Articles & Suppliers) application that consumes a Spring Boot backend API for buying and selling articles.
 
 ## Features
 
 - **Authentication**: Login page with JWT token-based authentication
 - **Dashboard**: Responsive layout with collapsible sidebar navigation
-- **Artists Management**: Full CRUD operations for managing artists
-- **Suppliers Management**: Complete supplier database management
+- **Articles Management**: Full CRUD operations for managing products/articles
+- **Suppliers Management**: Complete supplier database management for article offers
 - **Search & Filter**: Real-time search and category filtering
 - **Responsive Design**: Mobile-friendly interface matching Figma designs
 - **Error Handling**: User-friendly error messages and loading states
@@ -18,14 +18,14 @@ A comprehensive React frontend for the GAA (Gestion des Artistes et Artisans) ap
 src/
 ├── pages/
 │   ├── LoginPage.js          # Authentication page
-│   ├── ArtistesPage.js       # Artists management dashboard
+│   ├── ArticlesPage.js       # Articles management dashboard
 │   └── FournisseursPage.js   # Suppliers management dashboard
 ├── components/
 │   ├── Sidebar.js            # Left navigation sidebar
 │   ├── Navbar.js             # Top navigation bar
-│   ├── ArtistesTable.js      # Artists data table
+│   ├── ArticlesTable.js      # Articles data table
 │   ├── FournisseursTable.js  # Suppliers data table
-│   ├── ArtistModal.js        # Modal for adding/editing artists
+│   ├── ArticleModal.js       # Modal for adding/editing articles
 │   └── FournisseurModal.js   # Modal for adding/editing suppliers
 ├── layout/
 │   └── DashboardLayout.js    # Main dashboard wrapper
@@ -64,11 +64,11 @@ Ensure your Spring Boot backend provides these endpoints:
 ### Authentication
 - `POST /api/auth/login` - User login
 
-### Artists
-- `GET /api/artistes` - Fetch all artists
-- `POST /api/artistes` - Create new artist
-- `PUT /api/artistes/{id}` - Update artist
-- `DELETE /api/artistes/{id}` - Delete artist
+### Articles
+- `GET /api/articles` - Fetch all articles
+- `POST /api/articles` - Create new article
+- `PUT /api/articles/{id}` - Update article
+- `DELETE /api/articles/{id}` - Delete article
 
 ### Suppliers
 - `GET /api/fournisseurs` - Fetch all suppliers
