@@ -8,6 +8,7 @@ const API_BASE_URL = 'http://localhost:8080/api';
 function LoginPage({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ function LoginPage({ onLogin }) {
 
       const { token, user } = response.data;
       onLogin(token, user);
-       navigate('/dashboard/articles');
+      navigate('/dashboard/articles');
     } catch (err) {
       setError(err.response?.data?.message || 'Erreur de connexion. Vérifiez vos identifiants.');
     } finally {
@@ -34,60 +35,90 @@ function LoginPage({ onLogin }) {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-wrapper">
-        <div className="login-form-section">
-          <div className="login-header">
-            <h1>Connexion</h1>
-            <p>Connectez-vous à votre compte</p>
+    <div className="login-page">
+      <header className="navbar">
+        <div className="navbar-container">
+          <div className="navbar-logo">
+            <span className="logo-icon">G</span>
+            <span className="logo-text">Gestin Achat</span>
           </div>
-
-          <form onSubmit={handleSubmit} className="login-form">
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="exemple@entreprise.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password">Mot de passe</label>
-              <input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-
-            {error && <div className="error-message">{error}</div>}
-
-            <div className="form-actions">
-              <a href="#forgot" className="forgot-password">Mot de passe oublié ?</a>
-              <a href="#signup" className="signup-link">S'inscrire</a>
-            </div>
-
-            <button type="submit" className="login-button" disabled={loading}>
-              {loading ? 'Connexion en cours...' : 'Se connecter'}
-            </button>
-          </form>
-
-          <footer className="login-footer">
-            <p>© GAA 2026</p>
-          </footer>
+          <nav className="navbar-nav">
+            <a href="#accueil" className="nav-link">Accueil</a>
+            <a href="#fonctionnalites" className="nav-link">Fonctionnalités</a>
+            <a href="#contact" className="nav-link">Contact</a>
+          </nav>
+          <div className="navbar-actions">
+            <a href="#inscription" className="nav-link inscription-link">Inscription</a>
+            <button className="nav-button" disabled>Se connecter</button>
+          </div>
         </div>
+      </header>
 
-        <div className="login-image-section">
-          <div className="image-placeholder"></div>
+      <main className="login-main">
+        <div className="login-container">
+          <div className="login-content">
+            <div className="login-header">
+              <h1 className="login-title">Connexion</h1>
+              <p className="login-subtitle">Connectez-vous à votre compte</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="login-form">
+              <div className="form-group">
+                <label htmlFor="email" className="form-label">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  className="form-input"
+                  placeholder="exemple@entreprise.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="password" className="form-label">Mot de passe</label>
+                <input
+                  id="password"
+                  type="password"
+                  className="form-input"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-footer">
+                <div className="remember-me">
+                  <input
+                    id="remember"
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                  />
+                  <label htmlFor="remember" className="remember-label">Se souvenir de moi</label>
+                </div>
+                <a href="#forgot" className="forgot-password-link">Mot de passe oublié ?</a>
+              </div>
+
+              {error && <div className="error-message">{error}</div>}
+
+              <button type="submit" className="login-button" disabled={loading}>
+                {loading ? 'Connexion en cours...' : 'Se connecter'}
+              </button>
+            </form>
+
+            <div className="login-signup">
+              <p className="signup-text">Vous n'avez pas de compte ? <a href="#inscription" className="signup-link">Inscription</a></p>
+            </div>
+          </div>
         </div>
-      </div>
+      </main>
+
+      <footer className="login-footer">
+        <p className="footer-text">© GAA 2026</p>
+      </footer>
     </div>
   );
 }
