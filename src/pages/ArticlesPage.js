@@ -73,8 +73,7 @@ function ArticlesPage() {
   };
 
   const filteredArticles = articles.filter(article => {
-    const matchesSearch = article.nom?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         article.email?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = article.nom?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = !selectedCategory || article.categorie === selectedCategory;
     return matchesSearch && matchesCategory;
   });

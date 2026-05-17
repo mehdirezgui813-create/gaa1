@@ -4,8 +4,8 @@ import '../styles/Modal.css';
 function ArticleModal({ article, onSave, onClose }) {
   const [formData, setFormData] = useState({
     nom: '',
-    email: '',
-    telephone: '',
+    prix: '',
+    stock: '',
     categorie: '',
     statut: 'Disponible',
     description: ''
@@ -14,6 +14,15 @@ function ArticleModal({ article, onSave, onClose }) {
   useEffect(() => {
     if (article) {
       setFormData(article);
+    } else {
+      setFormData({
+        nom: '',
+        prix: '',
+        stock: '',
+        categorie: '',
+        statut: 'Disponible',
+        description: ''
+      });
     }
   }, [article]);
 
@@ -30,78 +39,94 @@ function ArticleModal({ article, onSave, onClose }) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-         <div className="modal-header">
-           <h2>{article ? 'Modifier l\'Article' : 'Ajouter un Article'}</h2>
-           <button className="close-btn" onClick={onClose}>✕</button>
-         </div>
+        <div className="modal-header">
+          <h2>{article ? 'Modifier l\'Article' : 'Ajouter un Article'}</h2>
+          <button className="close-btn" onClick={onClose}>✕</button>
+        </div>
 
         <form onSubmit={handleSubmit} className="modal-form">
-           <div className="form-group">
-             <label>Nom *</label>
-             <input
-               type="text"
-               name="nom"
-               value={formData.nom}
-               onChange={handleChange}
-               required
-             />
-           </div>
+          <div className="form-group">
+            <label htmlFor="nom">Nom *</label>
+            <input
+              id="nom"
+              type="text"
+              name="nom"
+              value={formData.nom}
+              onChange={handleChange}
+              placeholder="Nom de l'article"
+              required
+            />
+          </div>
 
-           <div className="form-group">
-             <label>Email *</label>
-             <input
-               type="email"
-               name="email"
-               value={formData.email}
-               onChange={handleChange}
-               required
-             />
-           </div>
+          <div className="form-group">
+            <label htmlFor="prix">Prix *</label>
+            <input
+              id="prix"
+              type="number"
+              name="prix"
+              value={formData.prix}
+              onChange={handleChange}
+              placeholder="0.00"
+              step="0.01"
+              required
+            />
+          </div>
 
-           <div className="form-group">
-             <label>Téléphone</label>
-             <input
-               type="tel"
-               name="telephone"
-               value={formData.telephone}
-               onChange={handleChange}
-             />
-           </div>
+          <div className="form-group">
+            <label htmlFor="stock">Stock *</label>
+            <input
+              id="stock"
+              type="number"
+              name="stock"
+              value={formData.stock}
+              onChange={handleChange}
+              placeholder="0"
+              required
+            />
+          </div>
 
-           <div className="form-group">
-             <label>Catégorie *</label>
-             <select
-               name="categorie"
-               value={formData.categorie}
-               onChange={handleChange}
-               required
-             >
-               <option value="">Sélectionner une catégorie</option>
-               <option value="Vêtements">Vêtements</option>
-               <option value="Électronique">Électronique</option>
-               <option value="Alimentation">Alimentation</option>
-               <option value="Maison">Maison</option>
-             </select>
-           </div>
+          <div className="form-group">
+            <label htmlFor="categorie">Catégorie *</label>
+            <select
+              id="categorie"
+              name="categorie"
+              value={formData.categorie}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Sélectionner une catégorie</option>
+              <option value="Vêtements">Vêtements</option>
+              <option value="Électronique">Électronique</option>
+              <option value="Alimentation">Alimentation</option>
+              <option value="Maison">Maison</option>
+            </select>
+          </div>
 
-           <div className="form-group">
-             <label>Statut</label>
-             <select name="statut" value={formData.statut} onChange={handleChange}>
-               <option value="Disponible">Disponible</option>
-               <option value="Épuisé">Épuisé</option>
-               <option value="En cours de réapprovisionnement">En cours de réapprovisionnement</option>
-             </select>
-           </div>
+          <div className="form-group">
+            <label htmlFor="statut">Statut</label>
+            <select 
+              id="statut"
+              name="statut" 
+              value={formData.statut} 
+              onChange={handleChange}
+            >
+              <option value="Disponible">Disponible</option>
+              <option value="Épuisé">Épuisé</option>
+              <option value="En cours de réapprovisionnement">En cours de réapprovisionnement</option>
+            </select>
+          </div>
 
-           <div className="form-group">
-             <label>Description</label>
-             <textarea
-               name="description"
-               value={formData.description}
-               onChange={handleChange}
-               rows="4"
-             ></textarea>
-           </div>
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              rows="4"
+              placeholder="Description de l'article"
+            ></textarea>
+          </div>
 
           <div className="modal-footer">
             <button type="button" className="btn-secondary" onClick={onClose}>Annuler</button>
@@ -113,4 +138,4 @@ function ArticleModal({ article, onSave, onClose }) {
   );
 }
 
-export default ArtistModal;
+export default ArticleModal;
