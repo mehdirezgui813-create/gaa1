@@ -38,7 +38,7 @@
 }
 
 .id-cell {
-  color: #667eea;
+  color: #5b7fff;
   font-weight: 600;
 }
 
@@ -91,42 +91,12 @@
   color: #e65100;
 }
 
-.category-badge.danseur {
-  background: #f3e5f5;
-  color: #7b1fa2;
-}
-
-.category-badge.chanteur {
-  background: #fce4ec;
-  color: #c2185b;
-}
-
-.category-badge.acteur {
-  background: #fff3e0;
-  color: #e65100;
-}
-
 .status-badge {
   display: inline-block;
   padding: 4px 12px;
   border-radius: 12px;
   font-size: 12px;
   font-weight: 600;
-}
-
-.status-badge.actif {
-  background: #e8f5e9;
-  color: #2e7d32;
-}
-
-.status-badge.inactif {
-  background: #ffebee;
-  color: #c62828;
-}
-
-.status-badge.suspendu {
-  background: #fff3e0;
-  color: #e65100;
 }
 
 .actions-cell {
