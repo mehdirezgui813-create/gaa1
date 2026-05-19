@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 import '../styles/OffresList.css';
 
 function OffresList({ offres, onEdit, onDelete }) {
@@ -91,14 +92,14 @@ function OffresList({ offres, onEdit, onDelete }) {
                 onClick={() => onEdit(offre)}
                 title="Modifier"
               >
-                ✏️ Modifier
+                <FaEdit /> Modifier
               </button>
               <button 
                 className="action-btn delete-btn"
                 onClick={() => onDelete(offre.id)}
                 title="Supprimer"
               >
-                🗑️ Supprimer
+                <FaTrash /> Supprimer
               </button>
             </div>
           </div>

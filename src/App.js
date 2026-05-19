@@ -7,8 +7,6 @@ import ArticlesPage from './pages/ArticlesPage';
 import FournisseursPage from './pages/FournisseursPage';
 import './styles/App.css';
 
-const API_BASE_URL = 'http://localhost:8080/api';
-
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -17,13 +15,27 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     const savedUser = localStorage.getItem('user');
-    
-    if (token && savedUser) {
-      setIsAuthenticated(true);
-      setUser(JSON.parse(savedUser));
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+    const isValidString = (value) => {
+      return value && value !== 'undefined' && value !== 'null';
+    };
+
+    if (isValidString(token) && isValidString(savedUser)) {
+      try {
+        const parsedUser = JSON.parse(savedUser);
+        setIsAuthenticated(true);
+        setUser(parsedUser);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      } catch (error) {
+        console.warn('Utilisateur stocké invalide, suppression du localStorage', error);
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+      }
+    } else if (!isValidString(savedUser) || !isValidString(token)) {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('user');
     }
-    
+
     setLoading(false);
   }, []);
 
@@ -53,7 +65,7 @@ function App() {
         <Route 
           path="/login" 
           element={
-             isAuthenticated ? <Navigate to="/dashboard/articles" /> : <LoginPage onLogin={handleLogin} />
+            isAuthenticated ? <Navigate to="/dashboard/articles" /> : <LoginPage onLogin={handleLogin} />
           } 
         />
         <Route
@@ -63,7 +75,7 @@ function App() {
               <DashboardLayout user={user} onLogout={handleLogout}>
                 <Routes>
                    <Route path="articles" element={<ArticlesPage />} />
-                  <Route path="fournisseurs" element={<FournisseursPage />} />
+                   <Route path="fournisseurs" element={<FournisseursPage />} />
                 </Routes>
               </DashboardLayout>
             ) : (

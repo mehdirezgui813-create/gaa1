@@ -1,103 +1,633 @@
 .sidebar {
-  width: 280px;
-  background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
-  color: white;
+  width: 220px;
+  min-height: 100vh;
+  background: #FFFFFF;
+  color: #374151;
   display: flex;
   flex-direction: column;
-  transition: width 0.3s ease;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.sidebar.closed {
-  width: 80px;
+  border-right: 1px solid #E5E7EB;
 }
 
 .sidebar-header {
-  padding: 20px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  align-items: center;
+  padding: 16px 16px 8px 16px; /* top right bottom left */
 }
 
-.logo {
+.sidebar-header-left {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-weight: bold;
-  font-size: 18px;
+  gap: 12px;
 }
 
-.logo-icon {
-  font-size: 24px;
+.sidebar-header-icon {
+  width: 40px;
+  height: 40px;
+  background: #3B82F6;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.toggle-btn {
-  background: none;
-  border: none;
-  color: white;
+.sidebar-header-text {
+  font-weight: 800;
+  font-size: 20px;
+  color: #111827;
+  letter-spacing: 0.02em;
+  margin-left: 12px; /* already accounted for in gap, but keeping for clarity */
+}
+
+.sidebar-header-toggle {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9CA3AF;
   cursor: pointer;
-  font-size: 16px;
-  padding: 4px 8px;
+  transition: color 0.2s ease;
+}
+
+.sidebar-header-toggle:hover {
+  color: #374151;
+}
+
+.sidebar-body {
+  flex: 1;
+  padding: 0 16px;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 12px 16px;
+  border-top: 1px solid #E5E7EB;
+}
+
+.sidebar-footer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6B7280;
+  font-size: 13px;
+}
+
+.sidebar-footer-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #9CA3AF;
+}
+
+.sidebar-section {
+  margin-bottom: 0; /* Changed from 24px to 0 */
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9CA3AF;
+  padding: 16px 16px 4px 16px; /* Changed bottom from 6px to 4px */
+  margin: 0;
 }
 
 .sidebar-nav {
-  flex: 1;
-  padding: 20px 0;
   display: flex;
   flex-direction: column;
+  gap: 4px;
+  margin-top: 0; /* Added to remove any top margin */
 }
 
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 20px;
-  color: rgba(255, 255, 255, 0.7);
+  gap: 10px;
+  padding: 10px 12px 10px 16px; /* Changed from 10px 16px to 10px 12px 10px 16px */
+  border-radius: 8px;
+  margin: 0 8px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 400;
   text-decoration: none;
-  transition: all 0.3s;
-  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .nav-item:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  background: #F9FAFB;
 }
 
 .nav-item.active {
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border-left: 4px solid #667eea;
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border-left: 3px solid #3B82F6;
+  font-weight: 600;
+  padding-left: 13px; /* adjust for border (16px - 3px) */
 }
 
 .nav-icon {
-  font-size: 20px;
-  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.nav-label {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.nav-item.active .nav-icon {
+  color: #3B82F6;
 }
 
-.sidebar-footer {
-  padding: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+/* Hover effect for active state? Not specified, but we can keep the hover as is */
+.nav-item.active:hover {
+  background: #EFF6FF; /* keep active background on hover */
 }
 
-.support-item {
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid #E5E7EB;
+  }
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 16px 8px 16px;
+}
+
+.sidebar-header-left {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: all 0.3s;
-  color: rgba(255, 255, 255, 0.7);
 }
 
-.support-item:hover {
-  color: white;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+.sidebar-header-icon {
+  width: 40px;
+  height: 40px;
+  background: #3B82F6;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.sidebar-header-icon span {
+  position: absolute;
+  width: 22px;
+  height: 2px;
+  background: #FFFFFF;
+}
+
+.sidebar-header-icon span:nth-child(1) {
+  top: 12px;
+  left: 9px;
+}
+
+.sidebar-header-icon span:nth-child(2) {
+  top: 16px;
+  left: 9px;
+}
+
+.sidebar-header-icon span:nth-child(3) {
+  top: 20px;
+  left: 9px;
+}
+
+.sidebar-header-text {
+  font-weight: 800;
+  font-size: 20px;
+  color: #111827;
+  letter-spacing: 0.02em;
+  margin-left: 12px;
+}
+
+.sidebar-header-toggle {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9CA3AF;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.sidebar-header-toggle:hover {
+  color: #374151;
+}
+
+.sidebar-body {
+  flex: 1;
+  padding: 0 16px;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 12px 16px;
+  border-top: 1px solid #E5E7EB;
+}
+
+.sidebar-footer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6B7280;
+  font-size: 13px;
+}
+
+.sidebar-footer-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #9CA3AF;
+}
+
+.sidebar-section {
+  margin-bottom: 0; /* Changed from 24px to 0 */
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9CA3AF;
+  padding: 16px 16px 4px 16px; /* Changed bottom from 6px to 4px */
+  margin: 0;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 0; /* Added to remove any top margin */
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px 10px 16px; /* Changed from 10px 16px to 10px 12px 10px 16px */
+  border-radius: 8px;
+  margin: 0 8px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background: #F9FAFB;
+}
+
+.nav-item.active {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border-left: 3px solid #3B82F6;
+  font-weight: 600;
+  padding-left: 13px; /* adjust for border (16px - 3px) */
+}
+
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}
+
+.nav-item.active .nav-icon {
+  color: #3B82F6;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid #E5E7EB;
+  }
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 16px 8px 16px; /* top right bottom left */
+}
+
+.sidebar-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-header-icon {
+  width: 40px;
+  height: 40px;
+  background: #3B82F6;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-header-text {
+  font-weight: 800;
+  font-size: 20px;
+  color: #111827;
+  letter-spacing: 0.02em;
+  margin-left: 12px; /* already accounted for in gap, but keeping for clarity */
+}
+
+.sidebar-header-toggle {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9CA3AF;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.sidebar-header-toggle:hover {
+  color: #374151;
+}
+
+.sidebar-body {
+  flex: 1;
+  padding: 0 16px;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 12px 16px;
+  border-top: 1px solid #E5E7EB;
+}
+
+.sidebar-footer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6B7280;
+  font-size: 13px;
+}
+
+.sidebar-footer-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #9CA3AF;
+}
+
+.sidebar-section {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9CA3AF;
+  padding: 16px 16px 6px 16px;
+  margin: 0;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin: 0 8px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background: #F9FAFB;
+}
+
+.nav-item.active {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border-left: 3px solid #3B82F6;
+  font-weight: 600;
+  padding-left: 13px; /* adjust for border */
+}
+
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item.active .nav-icon {
+  color: #3B82F6;
+}
+
+/* Hover effect for active state? Not specified, but we can keep the hover as is */
+.nav-item.active:hover {
+  background: #EFF6FF; /* keep active background on hover */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid #E5E7EB;
+  }
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 16px 8px 16px;
+}
+
+.sidebar-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-header-icon {
+  width: 40px;
+  height: 40px;
+  background: #3B82F6;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.sidebar-header-icon span {
+  position: absolute;
+  width: 22px;
+  height: 2px;
+  background: #FFFFFF;
+}
+
+.sidebar-header-icon span:nth-child(1) {
+  top: 12px;
+  left: 9px;
+}
+.sidebar-header-icon span:nth-child(2) {
+  top: 16px;
+  left: 9px;
+}
+.sidebar-header-icon span:nth-child(3) {
+  top: 20px;
+  left: 9px;
+}
+
+.sidebar-header-text {
+  font-weight: 800;
+  font-size: 20px;
+  color: #111827;
+  letter-spacing: 0.02em;
+  margin-left: 12px;
+}
+
+.sidebar-header-toggle {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9CA3AF;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.sidebar-header-toggle:hover {
+  color: #374151;
+}
+
+.sidebar-body {
+  flex: 1;
+  padding: 0 16px;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 12px 16px;
+  border-top: 1px solid #E5E7EB;
+}
+
+.sidebar-footer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6B7280;
+  font-size: 13px;
+}
+
+.sidebar-footer-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #9CA3AF;
+}
+
+.sidebar-section {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9CA3AF;
+  padding: 16px 16px 6px 16px;
+  margin: 0;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin: 0 8px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background: #F9FAFB;
+}
+
+.nav-item.active {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border-left: 3px solid #3B82F6;
+  font-weight: 600;
+  padding-left: 13px; /* adjust for border */
+}
+
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}
+
+.nav-item.active .nav-icon {
+  color: #3B82F6;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid #E5E7EB;
+  }
 }

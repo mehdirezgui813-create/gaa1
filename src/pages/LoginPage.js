@@ -6,7 +6,7 @@ import '../styles/LoginPage.css';
 const API_BASE_URL = 'http://localhost:8080/api';
 
 function LoginPage({ onLogin }) {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
@@ -20,14 +20,33 @@ function LoginPage({ onLogin }) {
 
     try {
       const response = await axios.post(`${API_BASE_URL}/auth/login`, {
-        email,
+        username,
         password
       });
 
-      const { token, user } = response.data;
-      onLogin(token, user);
+      // ✅ Structure : { success, message, data: AuthResponse }
+      const authResponse = response.data.data;
+
+      const token    = authResponse.token;
+      const codeSoc  = authResponse.codeSoc;
+      const user = {
+        username:      authResponse.username,
+        nom:           authResponse.nom,
+        prenom:        authResponse.prenom,
+        email:         authResponse.email,
+        role:          authResponse.role,
+        codeSoc:       authResponse.codeSoc,
+        idUtilisateur: authResponse.idUtilisateur
+      };
+
+      // ✅ Sauvegarde du codeSoc pour l'utiliser dans ArticlesPage
+      if (codeSoc) localStorage.setItem('codeSoc', codeSoc);
+
+      if (onLogin) onLogin(token, user);
       navigate('/dashboard/articles');
+
     } catch (err) {
+      console.error('Erreur login:', err.response?.data || err.message);
       setError(err.response?.data?.message || 'Erreur de connexion. Vérifiez vos identifiants.');
     } finally {
       setLoading(false);
@@ -64,14 +83,14 @@ function LoginPage({ onLogin }) {
 
             <form onSubmit={handleSubmit} className="login-form">
               <div className="form-group">
-                <label htmlFor="email" className="form-label">Email</label>
+                <label htmlFor="username" className="form-label">Nom d'utilisateur</label>
                 <input
-                  id="email"
-                  type="email"
+                  id="username"
+                  type="text"
                   className="form-input"
-                  placeholder="exemple@entreprise.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Votre nom d'utilisateur"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                 />
               </div>
@@ -110,7 +129,10 @@ function LoginPage({ onLogin }) {
             </form>
 
             <div className="login-signup">
-              <p className="signup-text">Vous n'avez pas de compte ? <a href="#inscription" className="signup-link">Inscription</a></p>
+              <p className="signup-text">
+                Vous n'avez pas de compte ?{' '}
+                <a href="#inscription" className="signup-link">Inscription</a>
+              </p>
             </div>
           </div>
         </div>

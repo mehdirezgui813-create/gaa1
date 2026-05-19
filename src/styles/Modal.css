@@ -46,16 +46,14 @@
 .close-btn {
   background: none;
   border: none;
-  font-size: 24px;
-  color: #999;
+  font-size: 20px;
+  color: #64748b;
   cursor: pointer;
-  transition: color 0.3s;
-  padding: 0;
-  width: 30px;
-  height: 30px;
+  padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color 0.2s;
 }
 
 .close-btn:hover {
@@ -67,6 +65,33 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.section-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section-group h3 {
+  font-size: 15px;
+  color: #0f172a;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 12px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
 
 .form-section {
@@ -137,6 +162,62 @@
   bottom: 0;
   background: white;
   z-index: 10;
+}
+
+.tax-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tax-add-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+}
+
+.tax-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tax-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-radius: 9999px;
+  font-size: 13px;
+}
+
+.tax-alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffedd5;
+  color: #9a3412;
+  padding: 14px 18px;
+  border-radius: 16px;
+  border-left: 4px solid #f97316;
+}
+
+.alert-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #9a3412;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
 }
 
 .btn-primary {

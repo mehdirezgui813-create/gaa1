@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaList, FaTable } from 'react-icons/fa';
 import axios from 'axios';
 import OffresList from '../components/OffresList';
 import OffresTable from '../components/OffresTable';
@@ -109,26 +110,34 @@ function OffresPage() {
     <div className="offres-page">
       <div className="page-header">
         <div className="header-content">
-          <h1>Gestion des Offres</h1>
-          <p>Gérez les offres fournisseurs sur vos articles</p>
+          <h1>Tableau de Bord des Achats</h1>
+          <p>Gérez les produits à acheter et leurs informations</p>
         </div>
-        <button className="btn-primary" onClick={handleAddOffre}>+ Nouvelle Offre</button>
+        <div className="page-actions">
+          <button type="button" className="btn-secondary-outline">Export</button>
+          <button className="btn-primary" onClick={handleAddOffre}>+ Nouvelle Offre</button>
+        </div>
       </div>
 
       {error && <div className="error-alert">{error}</div>}
 
       <div className="filters-section">
+        <div className="section-title">
+          <h2>Liste des articles</h2>
+        </div>
         <div className="search-box">
-          <input
-            type="text"
-            placeholder="Rechercher une offre..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+          <div className="search-input-wrapper">
+            <input
+              type="text"
+              placeholder="Rechercher une commande, un fournisseur..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
         <div className="filter-box">
           <select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)}>
-            <option value="">Tous les statuts</option>
+            <option value="">Toutes les catégories</option>
             <option value="En attente">En attente</option>
             <option value="Acceptée">Acceptée</option>
             <option value="Rejetée">Rejetée</option>
@@ -141,14 +150,14 @@ function OffresPage() {
             onClick={() => setSelectedView('list')}
             title="Vue liste"
           >
-            📋
+            <FaList />
           </button>
           <button 
             className={`view-btn ${selectedView === 'table' ? 'active' : ''}`}
             onClick={() => setSelectedView('table')}
             title="Vue tableau"
           >
-            📊
+            <FaTable />
           </button>
         </div>
       </div>

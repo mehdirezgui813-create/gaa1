@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaBell, FaSearch } from 'react-icons/fa';
 import '../styles/Navbar.css';
 
 function Navbar({ user, onLogout }) {
@@ -8,27 +9,36 @@ function Navbar({ user, onLogout }) {
     <div className="navbar">
       <div className="navbar-left">
         <div className="search-bar">
-          <input type="text" placeholder="Rechercher une commande, un artiste..." />
+          <div className="search-input-wrapper">
+            <FaSearch className="search-icon" />
+            <input
+              type="text"
+              placeholder="Rechercher une commande, un fournisseur..."
+            />
+          </div>
         </div>
       </div>
 
       <div className="navbar-right">
         <button className="notification-btn">
-          <span className="bell-icon">🔔</span>
-          <span className="notification-badge">3</span>
+          <FaBell />
+          <span className="notification-dot"></span>
         </button>
 
         <div className="user-profile">
-          <button 
-            className="profile-btn"
+          <button
+            className="profile-section"
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
-            <img 
-              src={`https://ui-avatars.com/api/?name=${user?.nom || 'User'}&background=random`}
+            <img
+              src="https://i.pravatar.cc/36"
               alt="Profile"
               className="profile-avatar"
             />
-            <span className="profile-name">{user?.nom || 'Utilisateur'}</span>
+            <div className="profile-info">
+              <span className="profile-name">Olivia Rhye</span>
+              <span className="profile-role">Admin</span>
+            </div>
           </button>
 
           {dropdownOpen && (

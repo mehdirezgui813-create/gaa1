@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 import '../styles/FournisseursTable.css';
 
 function FournisseursTable({ fournisseurs, onEdit, onDelete }) {
@@ -34,22 +35,22 @@ function FournisseursTable({ fournisseurs, onEdit, onDelete }) {
                     {fournisseur.statut || 'Actif'}
                   </span>
                 </td>
-                <td className="actions-cell">
-                  <button 
-                    className="action-btn edit-btn"
-                    onClick={() => onEdit(fournisseur)}
-                    title="Modifier"
-                  >
-                    ✏️
-                  </button>
-                  <button 
-                    className="action-btn delete-btn"
-                    onClick={() => onDelete(fournisseur.id)}
-                    title="Supprimer"
-                  >
-                    🗑️
-                  </button>
-                </td>
+<td className="actions-cell">
+                   <button 
+                     className="action-btn edit-btn"
+                     onClick={() => onEdit(fournisseur)}
+                     title="Modifier"
+                   >
+                     <FaEdit />
+                   </button>
+                   <button 
+                     className="action-btn delete-btn"
+                     onClick={() => onDelete(fournisseur.id)}
+                     title="Supprimer"
+                   >
+                     <FaTrash />
+                   </button>
+                 </td>
               </tr>
             ))
           ) : (
