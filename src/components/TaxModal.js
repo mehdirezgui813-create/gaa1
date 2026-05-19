@@ -4,38 +4,59 @@ import '../styles/TaxModal.css';
 
 function TaxModal({ onClose, onSave, existingTaxes = [] }) {
   const [formData, setFormData] = useState({
-    taxType: 'TVA',
-    operation: 'ACHAT',
-    rate: '5', // default to 5%
-    rateValue: '',
-    startDate: '',
-    endDate: ''
+    idTaxe: '',
+    codeOperation: 'ACHA',
+    dateDebut: Math.floor(Date.now() / 1000),
+    dateFin: null
   });
 
+  const TAX_OPTIONS = [
+    { id: 1, label: 'TVA 5%' },
+    { id: 2, label: 'TVA 10%' },
+    { id: 3, label: 'TVA 19%' },
+    { id: 4, label: 'TVA 20%' },
+    { id: 5, label: 'TCL' }
+  ];
+
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    if (type === 'checkbox') {
-      setFormData(prev => ({ ...prev, [name]: checked }));
-    } else if (name === 'rate-value') {
-      setFormData(prev => ({ ...prev, rateValue: value }));
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+    const { name, value } = e.target;
+    
+    if (name === 'idTaxe') {
+      setFormData(prev => ({ ...prev, idTaxe: parseInt(value) }));
+    } else if (name === 'codeOperation') {
+      setFormData(prev => ({ ...prev, codeOperation: value }));
+    } else if (name === 'dateDebut') {
+      const timestamp = new Date(value).getTime();
+      setFormData(prev => ({ ...prev, dateDebut: timestamp }));
+    } else if (name === 'dateFin') {
+      const timestamp = value ? new Date(value).getTime() : null;
+      setFormData(prev => ({ ...prev, dateFin: timestamp }));
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let rate = parseFloat(formData.rate);
-    if (formData.rate === 'other') {
-      rate = parseFloat(formData.rateValue);
+
+    if (!formData.idTaxe) {
+      alert('Veuillez sélectionner une taxe');
+      return;
     }
-    onSave({
-      taxType: formData.taxType,
-      operation: formData.operation,
-      rate: rate,
-      startDate: formData.startDate,
-      endDate: formData.endDate
-    });
+
+    const taxeData = {
+      idTaxe: formData.idTaxe,
+      codeOperation: formData.codeOperation,
+      dateDebut: formData.dateDebut,
+      dateFin: formData.dateFin
+    };
+
+    console.log('Taxe ajoutée:', taxeData);
+    onSave(taxeData);
+  };
+
+  const getDateFromTimestamp = (timestamp) => {
+    if (!timestamp) return '';
+    const date = new Date(timestamp);
+    return date.toISOString().split('T')[0];
   };
 
   return (
@@ -47,111 +68,73 @@ function TaxModal({ onClose, onSave, existingTaxes = [] }) {
             <FaTimes />
           </button>
         </div>
-        
+
         <form onSubmit={handleSubmit} className="tax-form">
           <div className="tax-form-row">
             <div className="tax-form-group">
-              <label htmlFor="taxType">Type de taxe</label>
+              <label htmlFor="idTaxe">Sélectionner une taxe</label>
               <select
-                id="taxType"
-                name="taxType"
-                value={formData.taxType}
+                id="idTaxe"
+                name="idTaxe"
+                value={formData.idTaxe}
                 onChange={handleChange}
                 required
               >
-                <option value="TVA">TVA</option>
-                <option value="TCL">TCL</option>
+                <option value="">-- Choisir une taxe --</option>
+                {TAX_OPTIONS.map(tax => (
+                  <option key={tax.id} value={tax.id}>
+                    {tax.label}
+                  </option>
+                ))}
               </select>
             </div>
-            
+
             <div className="tax-form-group">
-              <label htmlFor="operation">Opération</label>
-              <div className="operation-toggle">
-                <button
-                  type="button"
-                  className={formData.operation === 'ACHAT' ? 'operation-btn active' : 'operation-btn'}
-                  onClick={() => setFormData(prev => ({ ...prev, operation: 'ACHAT' }))}
-                >
-                  Achat
-                </button>
-                <button
-                  type="button"
-                  className={formData.operation === 'VENTE' ? 'operation-btn active' : 'operation-btn'}
-                  onClick={() => setFormData(prev => ({ ...prev, operation: 'VENTE' }))}
-                >
-                  Vente
-                </button>
-              </div>
-            </div>
-          </div>
-          
-          <div className="tax-form-row">
-            <div className="tax-form-group">
-              <label htmlFor="rate">Taux (%)</label>
+              <label htmlFor="codeOperation">Type d'opération</label>
               <select
-                id="rate"
-                name="rate"
-                value={formData.rate}
+                id="codeOperation"
+                name="codeOperation"
+                value={formData.codeOperation}
                 onChange={handleChange}
                 required
               >
-                <option value="5">5%</option>
-                <option value="2">2%</option>
-                <option value="10">10%</option>
-                <option value="20">20%</option>
-                <option value="other">Autre</option>
+                <option value="ACHA">Achat</option>
+                <option value="VENT">Vente</option>
               </select>
-              {formData.rate === 'other' && (
-                <input
-                  type="number"
-                  id="rate-value"
-                  name="rate-value"
-                  value={formData.rateValue || ''}
-                  onChange={handleChange}
-                  placeholder="ex: 2.5"
-                  min="0"
-                  max="100"
-                  step="0.01"
-                  style={{ marginTop: '8px', width: '100%', padding: '8px', border: '1px solid #E5E7EB', borderRadius: '8px', fontSize: '13px' }}
-                />
-              )}
             </div>
           </div>
-          
+
           <div className="tax-form-row">
             <div className="tax-form-group">
-              <label htmlFor="startDate">Date début</label>
+              <label htmlFor="dateDebut">Date début de validité</label>
               <input
-                id="startDate"
-                name="startDate"
+                id="dateDebut"
+                name="dateDebut"
                 type="date"
-                value={formData.startDate}
+                value={getDateFromTimestamp(formData.dateDebut)}
                 onChange={handleChange}
                 required
-                placeholder="dd/mm/yy"
               />
             </div>
-            
+
             <div className="tax-form-group">
-              <label htmlFor="endDate">Date fin</label>
+              <label htmlFor="dateFin">Date fin de validité (optionnel)</label>
               <input
-                id="endDate"
-                name="endDate"
+                id="dateFin"
+                name="dateFin"
                 type="date"
-                value={formData.endDate}
+                value={getDateFromTimestamp(formData.dateFin)}
                 onChange={handleChange}
-                required
-                placeholder="dd/mm/yy"
               />
             </div>
           </div>
-          
+
           <div className="tax-modal-footer">
             <button type="button" className="tax-btn-secondary" onClick={onClose}>
               Annuler
             </button>
             <button type="submit" className="tax-btn-primary">
-              Ajouter article
+              Ajouter taxe
             </button>
           </div>
         </form>
